@@ -1,10 +1,21 @@
 import argparse
 import json
+import re
 from pathlib import Path
 from typing import Dict, Iterable, List
 
 
 LABELS = ("A", "B", "C", "D", "E")
+FINAL_LINE_RE = re.compile(
+    r"^\s*Final\s*Answer\s*[:：]\s*[<（(]?\s*(?:选项|option)?\s*([A-E])\s*[>）)]?\s*$",
+    re.IGNORECASE | re.MULTILINE,
+)
+FINAL_RE = re.compile(
+    r"Final\s*Answer\s*[:：]\s*[<（(]?\s*(?:选项|option)?\s*([A-E])\s*[>）)]?",
+    re.IGNORECASE,
+)
+STANDALONE_OPTION_RE = re.compile(r"^\s*([A-E])\s*[\.、\)]?\s*$", re.IGNORECASE | re.MULTILINE)
+LEADING_OPTION_RE = re.compile(r"^\s*([A-E])\s*[\.、\)]\s+\S", re.IGNORECASE | re.MULTILINE)
 
 
 def iter_jsonl_files(path: Path) -> List[Path]:
@@ -30,6 +41,37 @@ def normalize_label(value) -> str:
     return text if text in LABELS else ""
 
 
+def extract_option_from_output(output: str) -> str:
+    if not output:
+        return ""
+
+    matches = FINAL_LINE_RE.findall(output)
+    if matches:
+        return matches[-1].upper()
+
+    matches = FINAL_RE.findall(output)
+    if matches:
+        return matches[-1].upper()
+
+    tail = output.splitlines()[-8:]
+    tail_text = "\n".join(tail)
+    matches = STANDALONE_OPTION_RE.findall(tail_text)
+    if matches:
+        return matches[-1].upper()
+
+    leading_option_matches = LEADING_OPTION_RE.findall(output)
+    if len(leading_option_matches) == 1:
+        return leading_option_matches[0].upper()
+
+    return ""
+
+
+def prediction_from_record(record: Dict) -> str:
+    if "generated_output" in record:
+        return extract_option_from_output(str(record.get("generated_output") or ""))
+    return normalize_label(record.get("extracted_option"))
+
+
 def compute_metrics(records: Iterable[Dict]) -> Dict[str, float | int]:
     total = 0
     correct = 0
@@ -37,7 +79,7 @@ def compute_metrics(records: Iterable[Dict]) -> Dict[str, float | int]:
 
     for record in records:
         y_true = normalize_label(record.get("answer"))
-        y_pred = normalize_label(record.get("extracted_option"))
+        y_pred = normalize_label(prediction_from_record(record))
         if not y_true:
             continue
 
