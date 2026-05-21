@@ -1,0 +1,38 @@
+# Python/runtime caches
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local OS / cloud-drive metadata
+.DS_Store
+desktop.ini
+*.gsheet
+
+# Generated benchmark artifacts
+Log/
+logs/
+Outputs/
+outputs/
+*.test.jsonl
+*.chat.test.jsonl
+data_clean/
+
+# Deleted/diagnostic artifact directories should not re-enter the public repo
+scripts/
+reports/
+diagnostics/
+
+# Internal working notes
+codex.md
+实验日志.md
+
+# Local environments and notebooks
+.venv/
+venv/
+env/
+.env
+.env.*
+.ipynb_checkpoints/
