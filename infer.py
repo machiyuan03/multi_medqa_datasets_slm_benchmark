@@ -19,7 +19,7 @@ except ImportError:  # pragma: no cover - compatibility with older transformers 
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
-DEFAULT_INPUT = PROJECT_ROOT / "data_clean" / "questions"
+DEFAULT_INPUT = Path.home() / "datasets" / "MedQA" / "questions"
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "outputs"
 DEFAULT_MODEL_CONFIG = PROJECT_ROOT / "configs" / "models.json"
 CANONICAL_TEST_FILES = (

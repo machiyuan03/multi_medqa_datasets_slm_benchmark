@@ -16,7 +16,6 @@ Log/
 logs/
 *.test.jsonl
 *.chat.test.jsonl
-data_clean/
 
 # Deleted/diagnostic artifact directories should not re-enter the public repo
 scripts/
