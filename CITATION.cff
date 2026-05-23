@@ -1,12 +1,12 @@
 cff-version: 1.2.0
 message: "If you use this benchmark artifact, please cite it using the metadata in this file."
-title: "Multi-MedVQA Datasets Small Language Model Benchmark"
+title: "Multi-MedQA Datasets Small Language Model Benchmark"
 authors:
   - family-names: "Ma"
     given-names: "Chiyuan"
     affiliation: "School of Computer Science, Faculty of Engineering and Information Technology, University of Technology Sydney"
     orcid: "https://orcid.org/0009-0000-8143-2427"
-repository-code: "https://github.com/machiyuan03/multi_medvqa_datasets_slm_benchmark"
+repository-code: "https://github.com/machiyuan03/multi_medqa_datasets_slm_benchmark"
 type: software
 year: 2026
 license: MIT

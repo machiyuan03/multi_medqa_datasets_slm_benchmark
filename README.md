@@ -1,4 +1,4 @@
-# Multi-MedVQA Datasets Small Language Model Benchmark
+# Multi-MedQA Datasets Small Language Model Benchmark
 
 This repository provides a lightweight evaluation pipeline and released model outputs for benchmarking small language models on MedQA-style multiple-choice medical questions in English, Simplified Chinese, and Traditional Chinese.
 

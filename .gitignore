@@ -14,6 +14,8 @@ desktop.ini
 # Generated benchmark artifacts
 Log/
 logs/
+Outputs/
+outputs/
 *.test.jsonl
 *.chat.test.jsonl
 
