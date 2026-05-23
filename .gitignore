@@ -24,8 +24,8 @@ reports/
 diagnostics/
 
 # Internal working notes
-codex.md
 实验日志.md
+AGENTS.md
 
 # Local environments and notebooks
 .venv/
