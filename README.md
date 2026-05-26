@@ -1,8 +1,7 @@
 # Multi-MedQA Datasets SLM Benchmark
 
-本项目用于在多个医学选择题 / MedQA 数据集上评估小语言模型。当前 README 只同步 `实验日志.md` 顶部热记忆：accuracy 主表和简要适配表。
+本项目用于在多个医学选择题 / MedQA 数据集上评估小语言模型
 
-## Accuracy
 
 | Model name              | MedQA / USMLE | MedMCQA | PubMedQA | MedXpertQA | MMLU medical subsets | MMedBench 多语种 | AfriMedQA | CRAFT-MedQA |
 | ----------------------- | ------------- | ------- | -------- | ---------- | -------------------- | ------------- | --------- | ----------- |
@@ -17,17 +16,21 @@
 | MiniCPM4-0.5B           | 0.1299        | 0.1181  |          |            |                      |               |           |             |
 | LFM2-350M               | 0.1132        | 0.2587  |          |            |                      |               |           |             |
 
+
 ## Adaptation
 
-| Model name              | MedQA / USMLE | MedMCQA                  | PubMedQA | MedXpertQA | MMLU medical subsets | MMedBench 多语种 | AfriMedQA | CRAFT-MedQA |
-| ----------------------- | ------------- | ------------------------ | -------- | ---------- | -------------------- | ------------- | --------- | ----------- |
-| Qwen3.5-0.8B            | 默认          | 默认                     |          |            |                      |               |           |             |
-| Qwen2.5-0.5B-Instruct   | 默认          | 默认                     |          |            |                      |               |           |             |
-| Qwen3-0.6B              | 默认          | `--no-chat-template`     |          |            |                      |               |           |             |
-| Granite 4.0 350M        | 默认          | 默认                     |          |            |                      |               |           |             |
-| Gemma 3 270M IT         | CT 口径       | CT 口径                  |          |            |                      |               |           |             |
-| SmolLM2-360M-Instruct   | 默认          | 默认                     |          |            |                      |               |           |             |
-| OLMo-2-0425-1B-Instruct | 默认          | `--no-chat-template`     |          |            |                      |               |           |             |
-| Llama 3.2 1B Instruct   | 默认          | 默认；resume `batch=1`   |          |            |                      |               |           |             |
-| MiniCPM4-0.5B           | 默认          | 默认                     |          |            |                      |               |           |             |
-| LFM2-350M               | 默认          | 默认                     |          |            |                      |               |           |             |
+
+| Model name              | MedQA / USMLE | MedMCQA              | PubMedQA | MedXpertQA | MMLU medical subsets | MMedBench 多语种 | AfriMedQA | CRAFT-MedQA |
+| ----------------------- | ------------- | -------------------- | -------- | ---------- | -------------------- | ------------- | --------- | ----------- |
+| Qwen3.5-0.8B            | 默认            | 默认                   |          |            |                      |               |           |             |
+| Qwen2.5-0.5B-Instruct   | 默认            | 默认                   |          |            |                      |               |           |             |
+| Qwen3-0.6B              | 默认            | `--no-chat-template` |          |            |                      |               |           |             |
+| Granite 4.0 350M        | 默认            | 默认                   |          |            |                      |               |           |             |
+| Gemma 3 270M IT         | CT 口径         | CT 口径                |          |            |                      |               |           |             |
+| SmolLM2-360M-Instruct   | 默认            | 默认                   |          |            |                      |               |           |             |
+| OLMo-2-0425-1B-Instruct | 默认            | `--no-chat-template` |          |            |                      |               |           |             |
+| Llama 3.2 1B Instruct   | 默认            | 默认；resume `batch=1`  |          |            |                      |               |           |             |
+| MiniCPM4-0.5B           | 默认            | 默认                   |          |            |                      |               |           |             |
+| LFM2-350M               | 默认            | 默认                   |          |            |                      |               |           |             |
+
+
