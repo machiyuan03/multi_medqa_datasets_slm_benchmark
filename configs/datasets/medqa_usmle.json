@@ -1,0 +1,14 @@
+{
+  "slug": "medqa_usmle",
+  "display_name": "MedQA / USMLE",
+  "default_input": "~/datasets/MedQA/questions",
+  "canonical_test_files": [
+    "Mainland/test.jsonl",
+    "Taiwan/test.jsonl",
+    "US/test.jsonl"
+  ],
+  "expected_rows": 6112,
+  "prompt_language": "auto",
+  "shuffle_options_seed": 123,
+  "notes": "Historical single-dataset benchmark. Canonical evaluation uses the three original test files only."
+}

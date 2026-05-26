@@ -1,0 +1,15 @@
+{
+  "slug": "medmcqa",
+  "display_name": "MedMCQA",
+  "default_input": "~/datasets/MedMCQA/awinml_medmcqa/canonical",
+  "canonical_test_files": [
+    "validation.jsonl"
+  ],
+  "expected_rows": 4183,
+  "prompt_language": "en",
+  "shuffle_options_seed": 123,
+  "source_dataset": "awinml/medmcqa",
+  "source_config": "default",
+  "source_split": "validation",
+  "notes": "HF awinml/medmcqa validation is the public labeled split used for candidate accuracy evaluation. HF test has no public labels in cop and is not usable for benchmark accuracy."
+}

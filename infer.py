@@ -20,13 +20,9 @@ except ImportError:  # pragma: no cover - compatibility with older transformers 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 DEFAULT_INPUT = Path.home() / "datasets" / "MedQA" / "questions"
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "outputs"
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "Outputs"
 DEFAULT_MODEL_CONFIG = PROJECT_ROOT / "configs" / "models.json"
-CANONICAL_TEST_FILES = (
-    Path("Mainland") / "test.jsonl",
-    Path("Taiwan") / "test.jsonl",
-    Path("US") / "test.jsonl",
-)
+DEFAULT_DATASET_CONFIG = PROJECT_ROOT / "configs" / "datasets" / "medqa_usmle.json"
 
 
 PROMPT_EN = """Answer from the stem and options.
@@ -94,6 +90,19 @@ def load_model_configs(path: str) -> Dict[str, Dict]:
     return configs
 
 
+def load_dataset_config(path: str | None) -> Dict:
+    if not path:
+        return {}
+    config_path = Path(path).expanduser()
+    if not config_path.exists():
+        raise FileNotFoundError(f"Dataset config not found: {config_path}")
+    with open(config_path, "r", encoding="utf-8") as f:
+        config = json.load(f)
+    if not isinstance(config, dict):
+        raise ValueError(f"Dataset config file must contain a JSON object: {config_path}")
+    return config
+
+
 def get_model_config(configs: Dict[str, Dict], model_name: str, model_path: str) -> Tuple[str, Dict]:
     candidates = [model_name, Path(str(model_path)).name, str(model_path)]
     for key in candidates:
@@ -109,13 +118,16 @@ def is_test_file(fp: Path) -> bool:
     return name == "test.jsonl" or name.endswith("test.jsonl") or "test" in parts
 
 
-def iter_input_files(path: str) -> List[str]:
+def iter_input_files(path: str, canonical_test_files: List[str] | None = None) -> List[str]:
     p = Path(path)
     if p.is_file():
         return [str(p)] if is_test_file(p) else []
 
-    canonical_files = [p / rel_path for rel_path in CANONICAL_TEST_FILES]
-    if all(fp.exists() for fp in canonical_files):
+    if canonical_test_files:
+        canonical_files = [p / rel_path for rel_path in canonical_test_files]
+        missing_files = [str(fp) for fp in canonical_files if not fp.exists()]
+        if missing_files:
+            raise FileNotFoundError(f"Canonical test files missing under {p}: {missing_files}")
         return [str(fp) for fp in canonical_files]
 
     files = sorted(p.rglob("*.jsonl"))
@@ -439,7 +451,7 @@ def run_batch_with_oom_fallback(tokenizer, model, prompts: List[str], max_new_to
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", default=str(DEFAULT_INPUT), help=f"Input JSONL file or directory (default: {DEFAULT_INPUT})")
+    parser.add_argument("--input", default=None, help="Input JSONL file or directory; defaults to the selected dataset config")
     parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR), help=f"Output directory (default: {DEFAULT_OUTPUT_DIR})")
     parser.add_argument("--model-path", required=True, help="Local model path or Hugging Face model name")
     parser.add_argument("--model-name", default=None, help="Override output file name; defaults to model path name")
@@ -451,6 +463,8 @@ def main() -> None:
     parser.add_argument("--test-limit", type=int, default=100, help="Default sample limit when --test-mode is enabled")
     parser.add_argument("--test-max-new-tokens", type=int, default=256, help="Default max_new_tokens when --test-mode is enabled")
     parser.add_argument("--model-config", default=str(DEFAULT_MODEL_CONFIG), help=f"Model adapter config JSON (default: {DEFAULT_MODEL_CONFIG})")
+    parser.add_argument("--dataset-config", default=str(DEFAULT_DATASET_CONFIG), help=f"Dataset config JSON (default: {DEFAULT_DATASET_CONFIG})")
+    parser.add_argument("--dataset-name", default=None, help="Override dataset output folder name; defaults to dataset config slug")
     parser.add_argument("--shuffle-options-seed", type=int, default=123, help="Shuffle options with this seed and remap answer labels")
     parser.add_argument("--chat-template", action="store_true", help="Wrap each prompt with the tokenizer chat template before generation")
     parser.add_argument("--no-chat-template", action="store_true", help="Disable chat template even if enabled in the model config")
@@ -458,7 +472,17 @@ def main() -> None:
     parser.add_argument("--resume", action="store_true", help="Append to an existing output file and skip records already written")
     args = parser.parse_args()
 
-    input_path = Path(args.input)
+    dataset_config = load_dataset_config(args.dataset_config)
+    dataset_slug = args.dataset_name or dataset_config.get("slug") or "dataset"
+    dataset_display_name = dataset_config.get("display_name") or dataset_slug
+    default_input = dataset_config.get("default_input") or str(DEFAULT_INPUT)
+    input_path = Path(args.input or default_input).expanduser()
+    canonical_test_files = [Path(rel_path) for rel_path in dataset_config.get("canonical_test_files", [])]
+    expected_rows = dataset_config.get("expected_rows")
+    config_shuffle_seed = dataset_config.get("shuffle_options_seed")
+    if config_shuffle_seed is not None and args.shuffle_options_seed == parser.get_default("shuffle_options_seed"):
+        args.shuffle_options_seed = int(config_shuffle_seed)
+
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -489,7 +513,7 @@ def main() -> None:
     if args.test_mode and effective_limit is None:
         effective_limit = args.test_limit
     output_suffix = ".chat.test.jsonl" if args.test_mode and effective_chat_template else ".test.jsonl" if args.test_mode else ".jsonl"
-    out_path = output_dir / model_name / f"{model_name}{output_suffix}"
+    out_path = output_dir / dataset_slug / model_name / f"{model_name}{output_suffix}"
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     tokenizer, model = load_local_model(
@@ -505,7 +529,7 @@ def main() -> None:
         raise RuntimeError("Model did not load onto GPU.")
 
     model_param = next(model.parameters())
-    input_files = list(iter_input_files(str(input_path)))
+    input_files = list(iter_input_files(str(input_path), canonical_test_files))
     if not input_files:
         raise RuntimeError("No test JSONL files matched under the input path.")
 
@@ -533,13 +557,24 @@ def main() -> None:
             option_key_counter.update(opts.keys())
         file_stats.append((input_file, len(examples), answered, dict(lengths), dict(keys)))
 
-    print(f"[dataset] mode={mode} files={len(input_files)} total_examples={total_examples} parseable_options={total_answered}", flush=True)
+    if expected_rows is not None and not args.test_mode and effective_limit is None and total_answered != int(expected_rows):
+        raise RuntimeError(
+            f"Dataset row count mismatch for {dataset_slug}: expected_rows={expected_rows}, parseable_options={total_answered}."
+        )
+
+    print(
+        f"[dataset] name={dataset_display_name} slug={dataset_slug} mode={mode} "
+        f"files={len(input_files)} total_examples={total_examples} parseable_options={total_answered}",
+        flush=True,
+    )
     print(f"[dataset] option_len_counts={dict(option_len_counter)} option_key_counts={dict(option_key_counter)}", flush=True)
     print(f"[dataset] selected_test_files={len(input_files)} total_test_examples={total_examples} parseable_options={total_answered}", flush=True)
 
     write_log(log_path, [
         f"[start] {datetime.now().isoformat(timespec='seconds')}",
         f"[input] {input_path}",
+        f"[dataset_config] path={args.dataset_config} slug={dataset_slug} name={dataset_display_name}",
+        f"[dataset_expected_rows] {expected_rows}",
         f"[mode] {mode}",
         f"[output] {out_path}",
         f"[model] {model_path}",
@@ -621,6 +656,9 @@ def main() -> None:
                     extracted_option, parse_status = parse_output(result.generated_text)
                     prompt = build_prompt(q, format_options_text(shuffled_opts), infer_language(q, src_file))
                     record = {
+                        "dataset": dataset_slug,
+                        "dataset_name": dataset_display_name,
+                        "dataset_config": args.dataset_config,
                         "source_file": src_file,
                         "question": q,
                         "options": shuffled_opts,
