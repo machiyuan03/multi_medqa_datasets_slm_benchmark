@@ -12,6 +12,7 @@ desktop.ini
 *.gsheet
 
 # Generated benchmark artifacts
+skills/
 Log/
 logs/
 Outputs/
