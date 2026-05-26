@@ -1,0 +1,15 @@
+{
+  "slug": "pubmedqa",
+  "display_name": "PubMedQA",
+  "default_input": "~/datasets/PubMedQA/pubmedqa_official/canonical",
+  "canonical_test_files": [
+    "test.jsonl"
+  ],
+  "expected_rows": 500,
+  "prompt_language": "en",
+  "shuffle_options_seed": 123,
+  "source_dataset": "pubmedqa/pubmedqa",
+  "source_subset": "pqa_labeled",
+  "source_split": "official test_set",
+  "notes": "Official PubMedQA PQA-L test split reconstructed from ori_pqal.json with the repository split script logic and verified against test_ground_truth.json. The yes/no/maybe labels are normalized to A/B/C multiple-choice options; abstract contexts are included inside the question field."
+}
