@@ -5,17 +5,17 @@ from pathlib import Path
 from typing import Dict, Iterable, List
 
 
-LABELS = ("A", "B", "C", "D", "E")
+LABELS = ("A", "B", "C", "D", "E", "F", "G", "H", "I", "J")
 FINAL_LINE_RE = re.compile(
-    r"^\s*Final\s*Answer\s*[:：]\s*[<（(]?\s*(?:选项|option)?\s*([A-E])\s*[>）)]?\s*$",
+    r"^\s*Final\s*Answer\s*[:：]\s*[<（(]?\s*(?:选项|option)?\s*([A-J])\s*[>）)]?\s*$",
     re.IGNORECASE | re.MULTILINE,
 )
 FINAL_RE = re.compile(
-    r"Final\s*Answer\s*[:：]\s*[<（(]?\s*(?:选项|option)?\s*([A-E])\s*[>）)]?",
+    r"Final\s*Answer\s*[:：]\s*[<（(]?\s*(?:选项|option)?\s*([A-J])\s*[>）)]?",
     re.IGNORECASE,
 )
-STANDALONE_OPTION_RE = re.compile(r"^\s*([A-E])\s*[\.、\)]?\s*$", re.IGNORECASE | re.MULTILINE)
-LEADING_OPTION_RE = re.compile(r"^\s*([A-E])\s*[\.、\)]\s+\S", re.IGNORECASE | re.MULTILINE)
+STANDALONE_OPTION_RE = re.compile(r"^\s*([A-J])\s*[\.、\)]?\s*$", re.IGNORECASE | re.MULTILINE)
+LEADING_OPTION_RE = re.compile(r"^\s*([A-J])\s*[\.、\)]\s+\S", re.IGNORECASE | re.MULTILINE)
 
 
 def iter_jsonl_files(path: Path) -> List[Path]:

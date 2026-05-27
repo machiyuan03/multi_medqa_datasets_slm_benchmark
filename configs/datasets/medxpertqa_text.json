@@ -1,0 +1,15 @@
+{
+  "slug": "medxpertqa_text",
+  "display_name": "MedXpertQA Text",
+  "default_input": "~/datasets/MedXpertQA/TsinghuaC3I_MedXpertQA/canonical_text",
+  "canonical_test_files": [
+    "test.jsonl"
+  ],
+  "expected_rows": 2450,
+  "prompt_language": "en",
+  "shuffle_options_seed": 123,
+  "source_dataset": "TsinghuaC3I/MedXpertQA",
+  "source_config": "Text",
+  "source_split": "test",
+  "notes": "Official MedXpertQA Text test split only. The multimodal MM split is excluded because the current benchmark pipeline is text-only. The original question field includes Answer Choices text, so canonical normalization removes that embedded choices block and stores options separately."
+}

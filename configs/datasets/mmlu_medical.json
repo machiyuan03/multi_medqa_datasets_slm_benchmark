@@ -1,0 +1,22 @@
+{
+  "slug": "mmlu_medical",
+  "display_name": "MMLU medical subsets",
+  "default_input": "~/datasets/MMLU/cais_mmlu_medical/canonical",
+  "canonical_test_files": [
+    "test.jsonl"
+  ],
+  "expected_rows": 1089,
+  "prompt_language": "en",
+  "shuffle_options_seed": 123,
+  "source_dataset": "cais/mmlu",
+  "source_configs": [
+    "anatomy",
+    "clinical_knowledge",
+    "college_biology",
+    "college_medicine",
+    "medical_genetics",
+    "professional_medicine"
+  ],
+  "source_split": "test",
+  "notes": "Canonical MMLU medical benchmark is the union of six medical or biomedical MMLU test configs: anatomy, clinical_knowledge, college_biology, college_medicine, medical_genetics, and professional_medicine. Dev and validation are excluded; auxiliary_train and all are not used."
+}
