@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this benchmark suite, please cite it and the original datasets and models evaluated in your work."
+title: "Multi-MedQA SLM Benchmark"
+type: software
+authors:
+  - family-names: Ma
+    given-names: Chiyuan
+    orcid: "https://orcid.org/0009-0000-8143-2427"
+repository-code: "https://github.com/machiyuan03/multi_medqa_datasets_slm_benchmark"
+url: "https://github.com/machiyuan03/multi_medqa_datasets_slm_benchmark"
+license: Apache-2.0
+version: "1.0.0"
+date-released: "2026-05-28"
+keywords:
+  - medical question answering
+  - benchmark
+  - small language models
+  - multiple-choice QA
+  - multilingual evaluation
+abstract: "A reproducible benchmark suite for evaluating small language models on medical multiple-choice question answering across multilingual, regional, and specialty-focused datasets."
+preferred-citation:
+  type: software
+  title: "Multi-MedQA SLM Benchmark"
+  authors:
+    - family-names: Ma
+      given-names: Chiyuan
+      orcid: "https://orcid.org/0009-0000-8143-2427"
+  repository-code: "https://github.com/machiyuan03/multi_medqa_datasets_slm_benchmark"
+  date-released: "2026-05-28"
+  license: Apache-2.0

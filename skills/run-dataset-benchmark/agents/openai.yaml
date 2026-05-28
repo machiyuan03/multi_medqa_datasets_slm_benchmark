@@ -1,4 +1,0 @@
-interface:
-  display_name: "Run Dataset Benchmark"
-  short_description: "Run one dataset benchmark end to end"
-  default_prompt: "Use $run-dataset-benchmark to run the next medical benchmark dataset through investigation, model dispatch, validation, and logging."

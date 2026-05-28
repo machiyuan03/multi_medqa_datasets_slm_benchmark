@@ -1,0 +1,286 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="760" viewBox="0 0 1160 760">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<style>
+text{font-family:Inter,Arial,Helvetica,sans-serif;fill:#1f2933}
+.title{font-size:24px;font-weight:700}
+.subtitle{font-size:13px;fill:#667085}
+.axis{font-size:12px;fill:#475467}
+.tick{font-size:11px;fill:#667085}
+.label{font-size:11px;fill:#344054}
+.tiny{font-size:10px;fill:#667085}
+</style>
+<text x="60" y="42" class="title">Accuracy matrix by dataset and model</text>
+<text x="60" y="66" class="subtitle">Rows sorted by model mean; columns sorted by dataset mean. Values are strict-format accuracy.</text>
+<text x="306.0" y="104" class="axis" text-anchor="middle" transform="rotate(-35 306.0 104)">PubMedQA</text>
+<text x="398.0" y="104" class="axis" text-anchor="middle" transform="rotate(-35 398.0 104)">CRAFT</text>
+<text x="490.0" y="104" class="axis" text-anchor="middle" transform="rotate(-35 490.0 104)">MMLU Med</text>
+<text x="582.0" y="104" class="axis" text-anchor="middle" transform="rotate(-35 582.0 104)">MMedBench</text>
+<text x="674.0" y="104" class="axis" text-anchor="middle" transform="rotate(-35 674.0 104)">MedQA</text>
+<text x="766.0" y="104" class="axis" text-anchor="middle" transform="rotate(-35 766.0 104)">MedMCQA</text>
+<text x="858.0" y="104" class="axis" text-anchor="middle" transform="rotate(-35 858.0 104)">AfriMedQA</text>
+<text x="950.0" y="104" class="axis" text-anchor="middle" transform="rotate(-35 950.0 104)">MedXpertQA</text>
+<text x="246" y="146.0" class="axis" text-anchor="end">Qwen3.5-0.8B</text>
+<rect x="260.0" y="118.0" width="89" height="45" rx="2" fill="#0b3975"/>
+<text x="305.0" y="146.0" class="label" text-anchor="middle" fill="#ffffff">0.63</text>
+<rect x="352.0" y="118.0" width="89" height="45" rx="2" fill="#114886"/>
+<text x="397.0" y="146.0" class="label" text-anchor="middle" fill="#ffffff">0.59</text>
+<rect x="444.0" y="118.0" width="89" height="45" rx="2" fill="#1b62a4"/>
+<text x="489.0" y="146.0" class="label" text-anchor="middle" fill="#ffffff">0.53</text>
+<rect x="536.0" y="118.0" width="89" height="45" rx="2" fill="#448ec5"/>
+<text x="581.0" y="146.0" class="label" text-anchor="middle" fill="#ffffff">0.41</text>
+<rect x="628.0" y="118.0" width="89" height="45" rx="2" fill="#3d88c2"/>
+<text x="673.0" y="146.0" class="label" text-anchor="middle" fill="#ffffff">0.43</text>
+<rect x="720.0" y="118.0" width="89" height="45" rx="2" fill="#569dcd"/>
+<text x="765.0" y="146.0" class="label" text-anchor="middle" fill="#ffffff">0.37</text>
+<rect x="812.0" y="118.0" width="89" height="45" rx="2" fill="#8ebfe0"/>
+<text x="857.0" y="146.0" class="label" text-anchor="middle" fill="#1f2933">0.26</text>
+<rect x="904.0" y="118.0" width="89" height="45" rx="2" fill="#d5e5f4"/>
+<text x="949.0" y="146.0" class="label" text-anchor="middle" fill="#1f2933">0.11</text>
+<text x="1014" y="146.0" class="tiny">mean 0.42</text>
+<text x="246" y="194.0" class="axis" text-anchor="end">Qwen2.5-0.5B</text>
+<rect x="260.0" y="166.0" width="89" height="45" rx="2" fill="#428dc4"/>
+<text x="305.0" y="194.0" class="label" text-anchor="middle" fill="#ffffff">0.41</text>
+<rect x="352.0" y="166.0" width="89" height="45" rx="2" fill="#4e96c9"/>
+<text x="397.0" y="194.0" class="label" text-anchor="middle" fill="#ffffff">0.39</text>
+<rect x="444.0" y="166.0" width="89" height="45" rx="2" fill="#5ca2cf"/>
+<text x="489.0" y="194.0" class="label" text-anchor="middle" fill="#1f2933">0.36</text>
+<rect x="536.0" y="166.0" width="89" height="45" rx="2" fill="#6aadd5"/>
+<text x="581.0" y="194.0" class="label" text-anchor="middle" fill="#1f2933">0.33</text>
+<rect x="628.0" y="166.0" width="89" height="45" rx="2" fill="#65a9d3"/>
+<text x="673.0" y="194.0" class="label" text-anchor="middle" fill="#1f2933">0.34</text>
+<rect x="720.0" y="166.0" width="89" height="45" rx="2" fill="#a3cae5"/>
+<text x="765.0" y="194.0" class="label" text-anchor="middle" fill="#1f2933">0.22</text>
+<rect x="812.0" y="166.0" width="89" height="45" rx="2" fill="#cde0f1"/>
+<text x="857.0" y="194.0" class="label" text-anchor="middle" fill="#1f2933">0.14</text>
+<rect x="904.0" y="166.0" width="89" height="45" rx="2" fill="#e9f2fa"/>
+<text x="949.0" y="194.0" class="label" text-anchor="middle" fill="#1f2933">0.05</text>
+<text x="1014" y="194.0" class="tiny">mean 0.28</text>
+<text x="246" y="242.0" class="axis" text-anchor="end">Granite-350M</text>
+<rect x="260.0" y="214.0" width="89" height="45" rx="2" fill="#3884bf"/>
+<text x="305.0" y="242.0" class="label" text-anchor="middle" fill="#ffffff">0.44</text>
+<rect x="352.0" y="214.0" width="89" height="45" rx="2" fill="#599fce"/>
+<text x="397.0" y="242.0" class="label" text-anchor="middle" fill="#ffffff">0.36</text>
+<rect x="444.0" y="214.0" width="89" height="45" rx="2" fill="#7eb8db"/>
+<text x="489.0" y="242.0" class="label" text-anchor="middle" fill="#1f2933">0.29</text>
+<rect x="536.0" y="214.0" width="89" height="45" rx="2" fill="#8ebfe0"/>
+<text x="581.0" y="242.0" class="label" text-anchor="middle" fill="#1f2933">0.26</text>
+<rect x="628.0" y="214.0" width="89" height="45" rx="2" fill="#a2c9e5"/>
+<text x="673.0" y="242.0" class="label" text-anchor="middle" fill="#1f2933">0.23</text>
+<rect x="720.0" y="214.0" width="89" height="45" rx="2" fill="#8bbedf"/>
+<text x="765.0" y="242.0" class="label" text-anchor="middle" fill="#1f2933">0.27</text>
+<rect x="812.0" y="214.0" width="89" height="45" rx="2" fill="#a7cce7"/>
+<text x="857.0" y="242.0" class="label" text-anchor="middle" fill="#1f2933">0.22</text>
+<rect x="904.0" y="214.0" width="89" height="45" rx="2" fill="#d9e8f5"/>
+<text x="949.0" y="242.0" class="label" text-anchor="middle" fill="#1f2933">0.10</text>
+<text x="1014" y="242.0" class="tiny">mean 0.27</text>
+<text x="246" y="290.0" class="axis" text-anchor="end">LFM2-350M</text>
+<rect x="260.0" y="262.0" width="89" height="45" rx="2" fill="#a6cbe6"/>
+<text x="305.0" y="290.0" class="label" text-anchor="middle" fill="#1f2933">0.22</text>
+<rect x="352.0" y="262.0" width="89" height="45" rx="2" fill="#2574b7"/>
+<text x="397.0" y="290.0" class="label" text-anchor="middle" fill="#ffffff">0.48</text>
+<rect x="444.0" y="262.0" width="89" height="45" rx="2" fill="#60a5d1"/>
+<text x="489.0" y="290.0" class="label" text-anchor="middle" fill="#1f2933">0.35</text>
+<rect x="536.0" y="262.0" width="89" height="45" rx="2" fill="#b4d2ea"/>
+<text x="581.0" y="290.0" class="label" text-anchor="middle" fill="#1f2933">0.19</text>
+<rect x="628.0" y="262.0" width="89" height="45" rx="2" fill="#d5e5f4"/>
+<text x="673.0" y="290.0" class="label" text-anchor="middle" fill="#1f2933">0.11</text>
+<rect x="720.0" y="262.0" width="89" height="45" rx="2" fill="#90c0e0"/>
+<text x="765.0" y="290.0" class="label" text-anchor="middle" fill="#1f2933">0.26</text>
+<rect x="812.0" y="262.0" width="89" height="45" rx="2" fill="#bad5ec"/>
+<text x="857.0" y="290.0" class="label" text-anchor="middle" fill="#1f2933">0.18</text>
+<rect x="904.0" y="262.0" width="89" height="45" rx="2" fill="#dce9f6"/>
+<text x="949.0" y="290.0" class="label" text-anchor="middle" fill="#1f2933">0.09</text>
+<text x="1014" y="290.0" class="tiny">mean 0.24</text>
+<text x="246" y="338.0" class="axis" text-anchor="end">MiniCPM4-0.5B</text>
+<rect x="260.0" y="310.0" width="89" height="45" rx="2" fill="#124987"/>
+<text x="305.0" y="338.0" class="label" text-anchor="middle" fill="#ffffff">0.59</text>
+<rect x="352.0" y="310.0" width="89" height="45" rx="2" fill="#6caed6"/>
+<text x="397.0" y="338.0" class="label" text-anchor="middle" fill="#1f2933">0.32</text>
+<rect x="444.0" y="310.0" width="89" height="45" rx="2" fill="#80b8dc"/>
+<text x="489.0" y="338.0" class="label" text-anchor="middle" fill="#1f2933">0.29</text>
+<rect x="536.0" y="310.0" width="89" height="45" rx="2" fill="#adcee8"/>
+<text x="581.0" y="338.0" class="label" text-anchor="middle" fill="#1f2933">0.21</text>
+<rect x="628.0" y="310.0" width="89" height="45" rx="2" fill="#d0e1f2"/>
+<text x="673.0" y="338.0" class="label" text-anchor="middle" fill="#1f2933">0.13</text>
+<rect x="720.0" y="310.0" width="89" height="45" rx="2" fill="#d3e4f3"/>
+<text x="765.0" y="338.0" class="label" text-anchor="middle" fill="#1f2933">0.12</text>
+<rect x="812.0" y="310.0" width="89" height="45" rx="2" fill="#e7f0fa"/>
+<text x="857.0" y="338.0" class="label" text-anchor="middle" fill="#1f2933">0.05</text>
+<rect x="904.0" y="310.0" width="89" height="45" rx="2" fill="#e8f1fa"/>
+<text x="949.0" y="338.0" class="label" text-anchor="middle" fill="#1f2933">0.05</text>
+<text x="1014" y="338.0" class="tiny">mean 0.22</text>
+<text x="246" y="386.0" class="axis" text-anchor="end">OLMo2-1B</text>
+<rect x="260.0" y="358.0" width="89" height="45" rx="2" fill="#6dafd6"/>
+<text x="305.0" y="386.0" class="label" text-anchor="middle" fill="#1f2933">0.32</text>
+<rect x="352.0" y="358.0" width="89" height="45" rx="2" fill="#3985c0"/>
+<text x="397.0" y="386.0" class="label" text-anchor="middle" fill="#ffffff">0.43</text>
+<rect x="444.0" y="358.0" width="89" height="45" rx="2" fill="#70b1d7"/>
+<text x="489.0" y="386.0" class="label" text-anchor="middle" fill="#1f2933">0.32</text>
+<rect x="536.0" y="358.0" width="89" height="45" rx="2" fill="#b5d3ea"/>
+<text x="581.0" y="386.0" class="label" text-anchor="middle" fill="#1f2933">0.19</text>
+<rect x="628.0" y="358.0" width="89" height="45" rx="2" fill="#c5daef"/>
+<text x="673.0" y="386.0" class="label" text-anchor="middle" fill="#1f2933">0.16</text>
+<rect x="720.0" y="358.0" width="89" height="45" rx="2" fill="#c8dcf0"/>
+<text x="765.0" y="386.0" class="label" text-anchor="middle" fill="#1f2933">0.16</text>
+<rect x="812.0" y="358.0" width="89" height="45" rx="2" fill="#e9f2fa"/>
+<text x="857.0" y="386.0" class="label" text-anchor="middle" fill="#1f2933">0.05</text>
+<rect x="904.0" y="358.0" width="89" height="45" rx="2" fill="#d8e7f5"/>
+<text x="949.0" y="386.0" class="label" text-anchor="middle" fill="#1f2933">0.10</text>
+<text x="1014" y="386.0" class="tiny">mean 0.22</text>
+<text x="246" y="434.0" class="axis" text-anchor="end">SmolLM2-360M</text>
+<rect x="260.0" y="406.0" width="89" height="45" rx="2" fill="#67abd4"/>
+<text x="305.0" y="434.0" class="label" text-anchor="middle" fill="#1f2933">0.33</text>
+<rect x="352.0" y="406.0" width="89" height="45" rx="2" fill="#96c3e2"/>
+<text x="397.0" y="434.0" class="label" text-anchor="middle" fill="#1f2933">0.25</text>
+<rect x="444.0" y="406.0" width="89" height="45" rx="2" fill="#9dc7e4"/>
+<text x="489.0" y="434.0" class="label" text-anchor="middle" fill="#1f2933">0.24</text>
+<rect x="536.0" y="406.0" width="89" height="45" rx="2" fill="#abcee8"/>
+<text x="581.0" y="434.0" class="label" text-anchor="middle" fill="#1f2933">0.21</text>
+<rect x="628.0" y="406.0" width="89" height="45" rx="2" fill="#bad5ec"/>
+<text x="673.0" y="434.0" class="label" text-anchor="middle" fill="#1f2933">0.18</text>
+<rect x="720.0" y="406.0" width="89" height="45" rx="2" fill="#a4cae6"/>
+<text x="765.0" y="434.0" class="label" text-anchor="middle" fill="#1f2933">0.22</text>
+<rect x="812.0" y="406.0" width="89" height="45" rx="2" fill="#bfd8ed"/>
+<text x="857.0" y="434.0" class="label" text-anchor="middle" fill="#1f2933">0.17</text>
+<rect x="904.0" y="406.0" width="89" height="45" rx="2" fill="#d7e6f5"/>
+<text x="949.0" y="434.0" class="label" text-anchor="middle" fill="#1f2933">0.11</text>
+<text x="1014" y="434.0" class="tiny">mean 0.21</text>
+<text x="246" y="482.0" class="axis" text-anchor="end">Qwen3-0.6B</text>
+<rect x="260.0" y="454.0" width="89" height="45" rx="2" fill="#579ecd"/>
+<text x="305.0" y="482.0" class="label" text-anchor="middle" fill="#ffffff">0.37</text>
+<rect x="352.0" y="454.0" width="89" height="45" rx="2" fill="#6fb0d7"/>
+<text x="397.0" y="482.0" class="label" text-anchor="middle" fill="#1f2933">0.32</text>
+<rect x="444.0" y="454.0" width="89" height="45" rx="2" fill="#9bc6e3"/>
+<text x="489.0" y="482.0" class="label" text-anchor="middle" fill="#1f2933">0.24</text>
+<rect x="536.0" y="454.0" width="89" height="45" rx="2" fill="#c3daee"/>
+<text x="581.0" y="482.0" class="label" text-anchor="middle" fill="#1f2933">0.17</text>
+<rect x="628.0" y="454.0" width="89" height="45" rx="2" fill="#81b9dc"/>
+<text x="673.0" y="482.0" class="label" text-anchor="middle" fill="#1f2933">0.29</text>
+<rect x="720.0" y="454.0" width="89" height="45" rx="2" fill="#accee8"/>
+<text x="765.0" y="482.0" class="label" text-anchor="middle" fill="#1f2933">0.21</text>
+<rect x="812.0" y="454.0" width="89" height="45" rx="2" fill="#edf5fc"/>
+<text x="857.0" y="482.0" class="label" text-anchor="middle" fill="#1f2933">0.03</text>
+<rect x="904.0" y="454.0" width="89" height="45" rx="2" fill="#edf5fc"/>
+<text x="949.0" y="482.0" class="label" text-anchor="middle" fill="#1f2933">0.03</text>
+<text x="1014" y="482.0" class="tiny">mean 0.21</text>
+<text x="246" y="530.0" class="axis" text-anchor="end">Gemma3-270M</text>
+<rect x="260.0" y="502.0" width="89" height="45" rx="2" fill="#ccdff1"/>
+<text x="305.0" y="530.0" class="label" text-anchor="middle" fill="#1f2933">0.14</text>
+<rect x="352.0" y="502.0" width="89" height="45" rx="2" fill="#f1f7fd"/>
+<text x="397.0" y="530.0" class="label" text-anchor="middle" fill="#1f2933">0.02</text>
+<rect x="444.0" y="502.0" width="89" height="45" rx="2" fill="#f3f8fe"/>
+<text x="489.0" y="530.0" class="label" text-anchor="middle" fill="#1f2933">0.01</text>
+<rect x="536.0" y="502.0" width="89" height="45" rx="2" fill="#abcee8"/>
+<text x="581.0" y="530.0" class="label" text-anchor="middle" fill="#1f2933">0.21</text>
+<rect x="628.0" y="502.0" width="89" height="45" rx="2" fill="#b0d0e9"/>
+<text x="673.0" y="530.0" class="label" text-anchor="middle" fill="#1f2933">0.20</text>
+<rect x="720.0" y="502.0" width="89" height="45" rx="2" fill="#9ec7e4"/>
+<text x="765.0" y="530.0" class="label" text-anchor="middle" fill="#1f2933">0.23</text>
+<rect x="812.0" y="502.0" width="89" height="45" rx="2" fill="#deebf7"/>
+<text x="857.0" y="530.0" class="label" text-anchor="middle" fill="#1f2933">0.08</text>
+<rect x="904.0" y="502.0" width="89" height="45" rx="2" fill="#f4f9fe"/>
+<text x="949.0" y="530.0" class="label" text-anchor="middle" fill="#1f2933">0.01</text>
+<text x="1014" y="530.0" class="tiny">mean 0.11</text>
+<text x="246" y="578.0" class="axis" text-anchor="end">Llama3.2-1B</text>
+<rect x="260.0" y="550.0" width="89" height="45" rx="2" fill="#f2f4f7"/>
+<text x="305.0" y="578.0" class="label" text-anchor="middle" fill="#ffffff">NA</text>
+<rect x="352.0" y="550.0" width="89" height="45" rx="2" fill="#c9ddf0"/>
+<text x="397.0" y="578.0" class="label" text-anchor="middle" fill="#1f2933">0.15</text>
+<rect x="444.0" y="550.0" width="89" height="45" rx="2" fill="#e5eff9"/>
+<text x="489.0" y="578.0" class="label" text-anchor="middle" fill="#1f2933">0.06</text>
+<rect x="536.0" y="550.0" width="89" height="45" rx="2" fill="#dbe9f6"/>
+<text x="581.0" y="578.0" class="label" text-anchor="middle" fill="#1f2933">0.09</text>
+<rect x="628.0" y="550.0" width="89" height="45" rx="2" fill="#cbdef1"/>
+<text x="673.0" y="578.0" class="label" text-anchor="middle" fill="#1f2933">0.15</text>
+<rect x="720.0" y="550.0" width="89" height="45" rx="2" fill="#deebf7"/>
+<text x="765.0" y="578.0" class="label" text-anchor="middle" fill="#1f2933">0.08</text>
+<rect x="812.0" y="550.0" width="89" height="45" rx="2" fill="#f0f7fd"/>
+<text x="857.0" y="578.0" class="label" text-anchor="middle" fill="#1f2933">0.02</text>
+<rect x="904.0" y="550.0" width="89" height="45" rx="2" fill="#f3f8fe"/>
+<text x="949.0" y="578.0" class="label" text-anchor="middle" fill="#1f2933">0.01</text>
+<text x="1014" y="578.0" class="tiny">mean 0.08</text>
+<rect x="260.0" y="643" width="4.5" height="12" fill="#f7fbff"/>
+<rect x="264.0" y="643" width="4.5" height="12" fill="#f5f9fe"/>
+<rect x="268.0" y="643" width="4.5" height="12" fill="#f2f8fd"/>
+<rect x="272.0" y="643" width="4.5" height="12" fill="#f0f6fd"/>
+<rect x="276.0" y="643" width="4.5" height="12" fill="#edf5fc"/>
+<rect x="280.0" y="643" width="4.5" height="12" fill="#ebf3fb"/>
+<rect x="284.0" y="643" width="4.5" height="12" fill="#e8f1fa"/>
+<rect x="288.0" y="643" width="4.5" height="12" fill="#e6f0f9"/>
+<rect x="292.0" y="643" width="4.5" height="12" fill="#e3eef9"/>
+<rect x="296.0" y="643" width="4.5" height="12" fill="#e1ecf8"/>
+<rect x="300.0" y="643" width="4.5" height="12" fill="#deebf7"/>
+<rect x="304.0" y="643" width="4.5" height="12" fill="#dce9f6"/>
+<rect x="308.0" y="643" width="4.5" height="12" fill="#d9e8f5"/>
+<rect x="312.0" y="643" width="4.5" height="12" fill="#d7e6f4"/>
+<rect x="316.0" y="643" width="4.5" height="12" fill="#d4e4f4"/>
+<rect x="320.0" y="643" width="4.5" height="12" fill="#d2e3f3"/>
+<rect x="324.0" y="643" width="4.5" height="12" fill="#cfe1f2"/>
+<rect x="328.0" y="643" width="4.5" height="12" fill="#cddff1"/>
+<rect x="332.0" y="643" width="4.5" height="12" fill="#cadef0"/>
+<rect x="336.0" y="643" width="4.5" height="12" fill="#c8dcf0"/>
+<rect x="340.0" y="643" width="4.5" height="12" fill="#c5daef"/>
+<rect x="344.0" y="643" width="4.5" height="12" fill="#c0d8ed"/>
+<rect x="348.0" y="643" width="4.5" height="12" fill="#bcd6ec"/>
+<rect x="352.0" y="643" width="4.5" height="12" fill="#b7d4eb"/>
+<rect x="356.0" y="643" width="4.5" height="12" fill="#b2d1ea"/>
+<rect x="360.0" y="643" width="4.5" height="12" fill="#aecfe8"/>
+<rect x="364.0" y="643" width="4.5" height="12" fill="#a9cde7"/>
+<rect x="368.0" y="643" width="4.5" height="12" fill="#a5cae6"/>
+<rect x="372.0" y="643" width="4.5" height="12" fill="#a0c8e5"/>
+<rect x="376.0" y="643" width="4.5" height="12" fill="#9bc6e3"/>
+<rect x="380.0" y="643" width="4.5" height="12" fill="#97c4e2"/>
+<rect x="384.0" y="643" width="4.5" height="12" fill="#92c1e1"/>
+<rect x="388.0" y="643" width="4.5" height="12" fill="#8ebfdf"/>
+<rect x="392.0" y="643" width="4.5" height="12" fill="#89bdde"/>
+<rect x="396.0" y="643" width="4.5" height="12" fill="#84bbdd"/>
+<rect x="400.0" y="643" width="4.5" height="12" fill="#80b8dc"/>
+<rect x="404.0" y="643" width="4.5" height="12" fill="#7bb6da"/>
+<rect x="408.0" y="643" width="4.5" height="12" fill="#77b4d9"/>
+<rect x="412.0" y="643" width="4.5" height="12" fill="#72b1d8"/>
+<rect x="416.0" y="643" width="4.5" height="12" fill="#6dafd7"/>
+<rect x="420.0" y="643" width="4.5" height="12" fill="#69acd5"/>
+<rect x="424.0" y="643" width="4.5" height="12" fill="#65a9d3"/>
+<rect x="428.0" y="643" width="4.5" height="12" fill="#62a6d2"/>
+<rect x="432.0" y="643" width="4.5" height="12" fill="#5ea3d0"/>
+<rect x="436.0" y="643" width="4.5" height="12" fill="#5aa0ce"/>
+<rect x="440.0" y="643" width="4.5" height="12" fill="#569dcd"/>
+<rect x="444.0" y="643" width="4.5" height="12" fill="#539acb"/>
+<rect x="448.0" y="643" width="4.5" height="12" fill="#4f97c9"/>
+<rect x="452.0" y="643" width="4.5" height="12" fill="#4b94c8"/>
+<rect x="456.0" y="643" width="4.5" height="12" fill="#4791c6"/>
+<rect x="460.0" y="643" width="4.5" height="12" fill="#448ec4"/>
+<rect x="464.0" y="643" width="4.5" height="12" fill="#408ac3"/>
+<rect x="468.0" y="643" width="4.5" height="12" fill="#3c87c1"/>
+<rect x="472.0" y="643" width="4.5" height="12" fill="#3884bf"/>
+<rect x="476.0" y="643" width="4.5" height="12" fill="#3581be"/>
+<rect x="480.0" y="643" width="4.5" height="12" fill="#317ebc"/>
+<rect x="484.0" y="643" width="4.5" height="12" fill="#2d7bba"/>
+<rect x="488.0" y="643" width="4.5" height="12" fill="#2978b9"/>
+<rect x="492.0" y="643" width="4.5" height="12" fill="#2675b7"/>
+<rect x="496.0" y="643" width="4.5" height="12" fill="#2272b5"/>
+<rect x="500.0" y="643" width="4.5" height="12" fill="#206fb2"/>
+<rect x="504.0" y="643" width="4.5" height="12" fill="#1f6bae"/>
+<rect x="508.0" y="643" width="4.5" height="12" fill="#1e68ab"/>
+<rect x="512.0" y="643" width="4.5" height="12" fill="#1c65a7"/>
+<rect x="516.0" y="643" width="4.5" height="12" fill="#1b61a3"/>
+<rect x="520.0" y="643" width="4.5" height="12" fill="#1a5e9f"/>
+<rect x="524.0" y="643" width="4.5" height="12" fill="#185b9c"/>
+<rect x="528.0" y="643" width="4.5" height="12" fill="#175798"/>
+<rect x="532.0" y="643" width="4.5" height="12" fill="#165494"/>
+<rect x="536.0" y="643" width="4.5" height="12" fill="#155190"/>
+<rect x="540.0" y="643" width="4.5" height="12" fill="#134e8d"/>
+<rect x="544.0" y="643" width="4.5" height="12" fill="#124a89"/>
+<rect x="548.0" y="643" width="4.5" height="12" fill="#114785"/>
+<rect x="552.0" y="643" width="4.5" height="12" fill="#104481"/>
+<rect x="556.0" y="643" width="4.5" height="12" fill="#0e407e"/>
+<rect x="560.0" y="643" width="4.5" height="12" fill="#0d3d7a"/>
+<rect x="564.0" y="643" width="4.5" height="12" fill="#0c3a76"/>
+<rect x="568.0" y="643" width="4.5" height="12" fill="#0b3772"/>
+<rect x="572.0" y="643" width="4.5" height="12" fill="#09336f"/>
+<rect x="576.0" y="643" width="4.5" height="12" fill="#08306b"/>
+<text x="260" y="677" class="tiny" text-anchor="middle">0.00</text>
+<text x="420.0" y="677" class="tiny" text-anchor="middle">0.33</text>
+<text x="580" y="677" class="tiny" text-anchor="middle">0.65</text>
+<text x="598" y="655" class="tiny">Accuracy</text>
+</svg>
