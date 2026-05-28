@@ -38,6 +38,19 @@ Final Answer: <option letter>
 Mechanism reasoning: at most 3 bullets; one medical causal point per bullet; no stem restatement; no option-by-option analysis.
 """
 
+PROMPT_EN_MULTI = """Answer from the stem and options.
+
+Question:
+{question}
+
+Options:
+{options_text}
+
+Required output format:
+Final Answer: <option letter or comma-separated option letters>
+Mechanism reasoning: at most 3 bullets; one medical causal point per bullet; no stem restatement; no option-by-option analysis.
+"""
+
 PROMPT_ZH = """仅根据题干和选项作答。
 
 题目：
@@ -51,16 +64,135 @@ Final Answer: <选项字母>
 Mechanism reasoning: 最多 3 个要点；每个要点只写一个医学因果点；不要重复题干；不要逐个分析选项。
 """
 
+PROMPT_ZH_MULTI = """仅根据题干和选项作答。
+
+题目：
+{question}
+
+选项：
+{options_text}
+
+要求输出格式：
+Final Answer: <选项字母；如有多个正确选项，用英文逗号分隔>
+Mechanism reasoning: 最多 3 个要点；每个要点只写一个医学因果点；不要重复题干；不要逐个分析选项。
+"""
+
+PROMPT_JA = """設問文と選択肢だけに基づいて答えてください。
+
+設問：
+{question}
+
+選択肢：
+{options_text}
+
+必須の出力形式：
+Final Answer: <選択肢の文字>
+Mechanism reasoning: 最大3項目。各項目は医学的な因果点を1つだけ述べる。設問文を繰り返さない。選択肢ごとの分析をしない。
+"""
+
+PROMPT_JA_MULTI = """設問文と選択肢だけに基づいて答えてください。
+
+設問：
+{question}
+
+選択肢：
+{options_text}
+
+必須の出力形式：
+Final Answer: <選択肢の文字。複数ある場合は英語のカンマで区切る>
+Mechanism reasoning: 最大3項目。各項目は医学的な因果点を1つだけ述べる。設問文を繰り返さない。選択肢ごとの分析をしない。
+"""
+
+PROMPT_FR = """Répondez uniquement à partir de l'énoncé et des options.
+
+Question :
+{question}
+
+Options :
+{options_text}
+
+Format de sortie requis :
+Final Answer: <lettre de l'option>
+Mechanism reasoning: au maximum 3 puces ; un seul point causal médical par puce ; ne pas répéter l'énoncé ; ne pas analyser option par option.
+"""
+
+PROMPT_FR_MULTI = """Répondez uniquement à partir de l'énoncé et des options.
+
+Question :
+{question}
+
+Options :
+{options_text}
+
+Format de sortie requis :
+Final Answer: <lettre de l'option, ou lettres séparées par des virgules>
+Mechanism reasoning: au maximum 3 puces ; un seul point causal médical par puce ; ne pas répéter l'énoncé ; ne pas analyser option par option.
+"""
+
+PROMPT_RU = """Ответьте только на основе условия и вариантов ответа.
+
+Вопрос:
+{question}
+
+Варианты:
+{options_text}
+
+Обязательный формат вывода:
+Final Answer: <буква варианта>
+Mechanism reasoning: не более 3 пунктов; в каждом пункте только одна медицинская причинно-следственная мысль; не повторяйте условие; не анализируйте варианты по одному.
+"""
+
+PROMPT_RU_MULTI = """Ответьте только на основе условия и вариантов ответа.
+
+Вопрос:
+{question}
+
+Варианты:
+{options_text}
+
+Обязательный формат вывода:
+Final Answer: <буква варианта или несколько букв через английскую запятую>
+Mechanism reasoning: не более 3 пунктов; в каждом пункте только одна медицинская причинно-следственная мысль; не повторяйте условие; не анализируйте варианты по одному.
+"""
+
+PROMPT_ES = """Responda solo a partir del enunciado y las opciones.
+
+Pregunta:
+{question}
+
+Opciones:
+{options_text}
+
+Formato de salida requerido:
+Final Answer: <letra de la opción>
+Mechanism reasoning: como máximo 3 viñetas; un solo punto causal médico por viñeta; no repetir el enunciado; no analizar opción por opción.
+"""
+
+PROMPT_ES_MULTI = """Responda solo a partir del enunciado y las opciones.
+
+Pregunta:
+{question}
+
+Opciones:
+{options_text}
+
+Formato de salida requerido:
+Final Answer: <letra de la opción, o letras separadas por comas>
+Mechanism reasoning: como máximo 3 viñetas; un solo punto causal médico por viñeta; no repetir el enunciado; no analizar opción por opción.
+"""
+
+LABELS = tuple("ABCDEFGHIJ")
 CJK_RE = re.compile(r"[\u4e00-\u9fff]")
+ANSWER_TEXT_RE = r"([A-J](?:\s*(?:[,，;/、&]|\band\b)\s*[A-J])*)"
 FINAL_LINE_RE = re.compile(
-    r"^\s*Final\s*Answer\s*[:：]\s*[<（(]?\s*(?:选项|option)?\s*([A-J])\s*[>）)]?\s*$",
+    rf"^\s*Final\s*Answer\s*[:：]\s*[<（(]?\s*(?:选项|option)?\s*{ANSWER_TEXT_RE}\s*[>）)]?\s*$",
     re.IGNORECASE | re.MULTILINE,
 )
 FINAL_RE = re.compile(
-    r"Final\s*Answer\s*[:：]\s*[<（(]?\s*(?:选项|option)?\s*([A-J])\s*[>）)]?",
+    rf"Final\s*Answer\s*[:：]\s*[<（(]?\s*(?:选项|option)?\s*{ANSWER_TEXT_RE}\s*[>）)]?",
     re.IGNORECASE,
 )
-STANDALONE_OPTION_RE = re.compile(r"^\s*([A-J])\s*[\.、\)]?\s*$", re.IGNORECASE | re.MULTILINE)
+STANDALONE_OPTION_RE = re.compile(rf"^\s*{ANSWER_TEXT_RE}\s*[\.、\)]?\s*$", re.IGNORECASE | re.MULTILINE)
 LEADING_OPTION_RE = re.compile(r"^\s*([A-J])\s*[\.、\)]\s+\S", re.IGNORECASE | re.MULTILINE)
 
 
@@ -182,7 +314,25 @@ def format_options_text(options: Dict[str, str]) -> str:
     return "\n".join(f"{k}. {v}" for k, v in options.items())
 
 
-def shuffle_options(options: Dict[str, str], answer: str, rng: random.Random) -> Tuple[Dict[str, str], str, Dict[str, str]]:
+def normalize_answer_labels(value) -> List[str]:
+    if isinstance(value, list):
+        raw_parts = [str(item) for item in value]
+    else:
+        raw_parts = re.split(r"[,，;/、&]|\band\b|\bor\b", str(value or ""), flags=re.IGNORECASE)
+
+    labels = []
+    for part in raw_parts:
+        for label in re.findall(r"[A-J]", part.upper()):
+            if label not in labels:
+                labels.append(label)
+    return labels
+
+
+def format_answer_labels(labels: List[str]) -> str:
+    return ",".join(label for label in LABELS if label in set(labels))
+
+
+def shuffle_options(options: Dict[str, str], answer, rng: random.Random) -> Tuple[Dict[str, str], str, Dict[str, str]]:
     items = list(options.items())
     rng.shuffle(items)
 
@@ -193,15 +343,52 @@ def shuffle_options(options: Dict[str, str], answer: str, rng: random.Random) ->
         shuffled_options[new_key] = value
         option_key_map[str(old_key).strip().upper()] = new_key
 
-    normalized_answer = str(answer or "").strip().upper()
-    shuffled_answer = option_key_map.get(normalized_answer, "")
+    normalized_answers = normalize_answer_labels(answer)
+    shuffled_answers = [option_key_map[label] for label in normalized_answers if label in option_key_map]
+    shuffled_answer = format_answer_labels(shuffled_answers)
     return shuffled_options, shuffled_answer, option_key_map
 
 
-def build_prompt(question: str, options_text: str, language: str) -> str:
+LANGUAGE_NAME_TO_PROMPT = {
+    "english": "en",
+    "chinese": "zh",
+    "japanese": "ja",
+    "french": "fr",
+    "russian": "ru",
+    "spanish": "es",
+}
+
+
+def resolve_prompt_language(dataset_config: Dict, question: str, input_file: str, metadata: Dict | None = None) -> str:
+    language = str(dataset_config.get("prompt_language") or "auto").lower()
+    if language == "metadata":
+        metadata_language = str((metadata or {}).get("language") or "").lower()
+        if metadata_language in LANGUAGE_NAME_TO_PROMPT:
+            return LANGUAGE_NAME_TO_PROMPT[metadata_language]
+        return "en"
+    if language == "auto":
+        return infer_language(question, input_file)
+    return language
+
+
+def build_prompt(question: str, options_text: str, language: str, allow_multi_answer: bool = False) -> str:
     if language == "zh":
-        return PROMPT_ZH.format(question=question, options_text=options_text)
-    return PROMPT_EN.format(question=question, options_text=options_text)
+        template = PROMPT_ZH_MULTI if allow_multi_answer else PROMPT_ZH
+        return template.format(question=question, options_text=options_text)
+    if language == "ja":
+        template = PROMPT_JA_MULTI if allow_multi_answer else PROMPT_JA
+        return template.format(question=question, options_text=options_text)
+    if language == "fr":
+        template = PROMPT_FR_MULTI if allow_multi_answer else PROMPT_FR
+        return template.format(question=question, options_text=options_text)
+    if language == "ru":
+        template = PROMPT_RU_MULTI if allow_multi_answer else PROMPT_RU
+        return template.format(question=question, options_text=options_text)
+    if language == "es":
+        template = PROMPT_ES_MULTI if allow_multi_answer else PROMPT_ES
+        return template.format(question=question, options_text=options_text)
+    template = PROMPT_EN_MULTI if allow_multi_answer else PROMPT_EN
+    return template.format(question=question, options_text=options_text)
 
 
 def apply_chat_template(tokenizer, prompts: List[str], template_kwargs: Dict | None = None) -> List[str]:
@@ -219,23 +406,26 @@ def apply_chat_template(tokenizer, prompts: List[str], template_kwargs: Dict | N
     ]
 
 
-def extract_option_from_output(output: str) -> str:
+def extract_option_from_output(output: str, allow_multi_answer: bool = False) -> str:
     if not output:
         return ""
 
     matches = FINAL_LINE_RE.findall(output)
     if matches:
-        return matches[-1].upper()
+        labels = normalize_answer_labels(matches[-1])
+        return format_answer_labels(labels if allow_multi_answer else labels[-1:])
 
     matches = FINAL_RE.findall(output)
     if matches:
-        return matches[-1].upper()
+        labels = normalize_answer_labels(matches[-1])
+        return format_answer_labels(labels if allow_multi_answer else labels[-1:])
 
     tail = output.splitlines()[-8:]
     tail_text = "\n".join(tail)
     matches = STANDALONE_OPTION_RE.findall(tail_text)
     if matches:
-        return matches[-1].upper()
+        labels = normalize_answer_labels(matches[-1])
+        return format_answer_labels(labels if allow_multi_answer else labels[-1:])
 
     leading_option_matches = LEADING_OPTION_RE.findall(output)
     if len(leading_option_matches) == 1:
@@ -244,8 +434,8 @@ def extract_option_from_output(output: str) -> str:
     return ""
 
 
-def parse_output(output: str) -> Tuple[str, str]:
-    extracted_option = extract_option_from_output(output)
+def parse_output(output: str, allow_multi_answer: bool = False) -> Tuple[str, str]:
+    extracted_option = extract_option_from_output(output, allow_multi_answer=allow_multi_answer)
     if FINAL_LINE_RE.search(output) or FINAL_RE.search(output):
         return extracted_option, "matched_final"
     if extracted_option:
@@ -479,6 +669,8 @@ def main() -> None:
     input_path = Path(args.input or default_input).expanduser()
     canonical_test_files = [Path(rel_path) for rel_path in dataset_config.get("canonical_test_files", [])]
     expected_rows = dataset_config.get("expected_rows")
+    allow_multi_answer = bool(dataset_config.get("allow_multi_answer", False))
+    shuffle_options_enabled = bool(dataset_config.get("shuffle_options", True))
     config_shuffle_seed = dataset_config.get("shuffle_options_seed")
     if config_shuffle_seed is not None and args.shuffle_options_seed == parser.get_default("shuffle_options_seed"):
         args.shuffle_options_seed = int(config_shuffle_seed)
@@ -575,6 +767,8 @@ def main() -> None:
         f"[input] {input_path}",
         f"[dataset_config] path={args.dataset_config} slug={dataset_slug} name={dataset_display_name}",
         f"[dataset_expected_rows] {expected_rows}",
+        f"[allow_multi_answer] {allow_multi_answer}",
+        f"[shuffle_options] {shuffle_options_enabled}",
         f"[mode] {mode}",
         f"[output] {out_path}",
         f"[model] {model_path}",
@@ -603,9 +797,15 @@ def main() -> None:
             opts = extract_options(example)
             if opts is None:
                 continue
-            original_answer = str(example.get("answer_idx", "") or "").strip().upper()
-            shuffled_opts, shuffled_answer, option_key_map = shuffle_options(opts, original_answer, option_shuffle_rng)
-            all_records.append((input_file, example.get("question", ""), opts, original_answer, shuffled_opts, shuffled_answer, option_key_map))
+            original_answer_labels = normalize_answer_labels(example.get("answer_idx", ""))
+            original_answer = format_answer_labels(original_answer_labels)
+            if shuffle_options_enabled:
+                shuffled_opts, shuffled_answer, option_key_map = shuffle_options(opts, original_answer, option_shuffle_rng)
+            else:
+                shuffled_opts = opts
+                shuffled_answer = original_answer
+                option_key_map = {str(key).strip().upper(): str(key).strip().upper() for key in opts}
+            all_records.append((input_file, example.get("question", ""), opts, original_answer, shuffled_opts, shuffled_answer, option_key_map, example.get("metadata", {})))
 
     total_to_process = min(len(all_records), effective_limit) if effective_limit is not None else len(all_records)
     resume_start = 0
@@ -624,7 +824,15 @@ def main() -> None:
         return
 
     probe_records = all_records[: min(8, total_to_process)]
-    probe_prompts = [build_prompt(q, format_options_text(shuffled_opts), infer_language(q, src)) for src, q, _, _, shuffled_opts, _, _ in probe_records]
+    probe_prompts = [
+        build_prompt(
+            q,
+            format_options_text(shuffled_opts),
+            resolve_prompt_language(dataset_config, q, src, metadata),
+            allow_multi_answer=allow_multi_answer,
+        )
+        for src, q, _, _, shuffled_opts, _, _, metadata in probe_records
+    ]
     probe_model_inputs = apply_chat_template(tokenizer, probe_prompts, chat_template_kwargs) if effective_chat_template else probe_prompts
     configured_batch_size = args.batch_size if args.batch_size is not None else model_config.get("batch_size")
     if configured_batch_size is not None:
@@ -646,15 +854,24 @@ def main() -> None:
             for batch_start in range(0, total_to_process, stable_batch_size):
                 batch_end = min(batch_start + stable_batch_size, total_to_process)
                 batch_records = all_records[batch_start:batch_end]
-                batch_prompts = [build_prompt(q, format_options_text(shuffled_opts), infer_language(q, src)) for src, q, _, _, shuffled_opts, _, _ in batch_records]
+                batch_prompts = [
+                    build_prompt(
+                        q,
+                        format_options_text(shuffled_opts),
+                        resolve_prompt_language(dataset_config, q, src, metadata),
+                        allow_multi_answer=allow_multi_answer,
+                    )
+                    for src, q, _, _, shuffled_opts, _, _, metadata in batch_records
+                ]
                 batch_model_inputs = apply_chat_template(tokenizer, batch_prompts, chat_template_kwargs) if effective_chat_template else batch_prompts
                 print(f"[batch] start size={len(batch_prompts)} target={stable_batch_size} {gpu_memory_report()}", flush=True)
                 outputs = run_batch_with_oom_fallback(tokenizer, model, batch_model_inputs, max_new_tokens=max_new_tokens, batch_size=stable_batch_size, log_path=log_path, use_cache=effective_use_cache)
                 print(f"[batch] done size={len(batch_prompts)} target={stable_batch_size} {gpu_memory_report()}", flush=True)
 
-                for (src_file, q, original_opts, original_ans, shuffled_opts, ans, option_key_map), result in zip(batch_records, outputs):
-                    extracted_option, parse_status = parse_output(result.generated_text)
-                    prompt = build_prompt(q, format_options_text(shuffled_opts), infer_language(q, src_file))
+                for (src_file, q, original_opts, original_ans, shuffled_opts, ans, option_key_map, metadata), result in zip(batch_records, outputs):
+                    extracted_option, parse_status = parse_output(result.generated_text, allow_multi_answer=allow_multi_answer)
+                    prompt_language = resolve_prompt_language(dataset_config, q, src_file, metadata)
+                    prompt = build_prompt(q, format_options_text(shuffled_opts), prompt_language, allow_multi_answer=allow_multi_answer)
                     record = {
                         "dataset": dataset_slug,
                         "dataset_name": dataset_display_name,
@@ -663,11 +880,16 @@ def main() -> None:
                         "question": q,
                         "options": shuffled_opts,
                         "answer": ans,
+                        "answer_labels": normalize_answer_labels(ans),
                         "original_options": original_opts,
                         "original_answer": original_ans,
+                        "original_answer_labels": normalize_answer_labels(original_ans),
                         "option_key_map": option_key_map,
                         "option_shuffle_seed": args.shuffle_options_seed,
+                        "metadata": metadata,
                         "prompt": prompt,
+                        "prompt_language": prompt_language,
+                        "allow_multi_answer": allow_multi_answer,
                         "model_output": result.full_text,
                         "generated_output": result.generated_text,
                         "generated_token_count": result.generated_token_count,
@@ -680,6 +902,7 @@ def main() -> None:
                         "stopped_by_eos": result.stopped_by_eos,
                         "possibly_truncated": result.generated_token_count >= max_new_tokens and not result.stopped_by_eos,
                         "extracted_option": extracted_option,
+                        "extracted_options": normalize_answer_labels(extracted_option),
                         "parse_status": parse_status,
                         "parse_source": "generated_output",
                     }

@@ -6,15 +6,16 @@ from typing import Dict, Iterable, List
 
 
 LABELS = ("A", "B", "C", "D", "E", "F", "G", "H", "I", "J")
+ANSWER_TEXT_RE = r"([A-J](?:\s*(?:[,，;/、&]|\band\b)\s*[A-J])*)"
 FINAL_LINE_RE = re.compile(
-    r"^\s*Final\s*Answer\s*[:：]\s*[<（(]?\s*(?:选项|option)?\s*([A-J])\s*[>）)]?\s*$",
+    rf"^\s*Final\s*Answer\s*[:：]\s*[<（(]?\s*(?:选项|option)?\s*{ANSWER_TEXT_RE}\s*[>）)]?\s*$",
     re.IGNORECASE | re.MULTILINE,
 )
 FINAL_RE = re.compile(
-    r"Final\s*Answer\s*[:：]\s*[<（(]?\s*(?:选项|option)?\s*([A-J])\s*[>）)]?",
+    rf"Final\s*Answer\s*[:：]\s*[<（(]?\s*(?:选项|option)?\s*{ANSWER_TEXT_RE}\s*[>）)]?",
     re.IGNORECASE,
 )
-STANDALONE_OPTION_RE = re.compile(r"^\s*([A-J])\s*[\.、\)]?\s*$", re.IGNORECASE | re.MULTILINE)
+STANDALONE_OPTION_RE = re.compile(rf"^\s*{ANSWER_TEXT_RE}\s*[\.、\)]?\s*$", re.IGNORECASE | re.MULTILINE)
 LEADING_OPTION_RE = re.compile(r"^\s*([A-J])\s*[\.、\)]\s+\S", re.IGNORECASE | re.MULTILINE)
 
 
@@ -41,23 +42,44 @@ def normalize_label(value) -> str:
     return text if text in LABELS else ""
 
 
-def extract_option_from_output(output: str) -> str:
+def normalize_answer_labels(value) -> List[str]:
+    if isinstance(value, list):
+        raw_parts = [str(item) for item in value]
+    else:
+        raw_parts = re.split(r"[,，;/、&]|\band\b|\bor\b", str(value or ""), flags=re.IGNORECASE)
+
+    labels = []
+    for part in raw_parts:
+        for label in re.findall(r"[A-J]", part.upper()):
+            if label not in labels:
+                labels.append(label)
+    return [label for label in LABELS if label in set(labels)]
+
+
+def format_answer_labels(labels: List[str]) -> str:
+    return ",".join(label for label in LABELS if label in set(labels))
+
+
+def extract_option_from_output(output: str, allow_multi_answer: bool = False) -> str:
     if not output:
         return ""
 
     matches = FINAL_LINE_RE.findall(output)
     if matches:
-        return matches[-1].upper()
+        labels = normalize_answer_labels(matches[-1])
+        return format_answer_labels(labels if allow_multi_answer else labels[-1:])
 
     matches = FINAL_RE.findall(output)
     if matches:
-        return matches[-1].upper()
+        labels = normalize_answer_labels(matches[-1])
+        return format_answer_labels(labels if allow_multi_answer else labels[-1:])
 
     tail = output.splitlines()[-8:]
     tail_text = "\n".join(tail)
     matches = STANDALONE_OPTION_RE.findall(tail_text)
     if matches:
-        return matches[-1].upper()
+        labels = normalize_answer_labels(matches[-1])
+        return format_answer_labels(labels if allow_multi_answer else labels[-1:])
 
     leading_option_matches = LEADING_OPTION_RE.findall(output)
     if len(leading_option_matches) == 1:
@@ -67,34 +89,44 @@ def extract_option_from_output(output: str) -> str:
 
 
 def prediction_from_record(record: Dict) -> str:
+    allow_multi_answer = bool(record.get("allow_multi_answer", False))
     if "generated_output" in record:
-        return extract_option_from_output(str(record.get("generated_output") or ""))
-    return normalize_label(record.get("extracted_option"))
+        return extract_option_from_output(str(record.get("generated_output") or ""), allow_multi_answer=allow_multi_answer)
+    labels = normalize_answer_labels(record.get("extracted_options") or record.get("extracted_option"))
+    return format_answer_labels(labels if allow_multi_answer else labels[-1:])
 
 
 def compute_metrics(records: Iterable[Dict]) -> Dict[str, float | int]:
     total = 0
     correct = 0
     invalid_predictions = 0
+    multi_answer_total = 0
+    multi_answer_correct = 0
 
     for record in records:
-        y_true = normalize_label(record.get("answer"))
-        y_pred = normalize_label(prediction_from_record(record))
-        if not y_true:
+        y_true_labels = normalize_answer_labels(record.get("answer_labels") or record.get("answer"))
+        y_pred_labels = normalize_answer_labels(prediction_from_record(record))
+        if not y_true_labels:
             continue
 
         total += 1
-        if not y_pred:
+        if len(y_true_labels) > 1:
+            multi_answer_total += 1
+        if not y_pred_labels:
             invalid_predictions += 1
             continue
 
-        if y_pred == y_true:
+        if set(y_pred_labels) == set(y_true_labels):
             correct += 1
+            if len(y_true_labels) > 1:
+                multi_answer_correct += 1
 
     return {
         "total": total,
         "correct": correct,
         "invalid_predictions": invalid_predictions,
+        "multi_answer_total": multi_answer_total,
+        "multi_answer_correct": multi_answer_correct,
         "accuracy": correct / total if total else 0.0,
     }
 
@@ -104,15 +136,17 @@ def format_float(value: float) -> str:
 
 
 def print_table(rows: List[Dict]) -> None:
-    print("| File | N | Correct | Invalid | Accuracy |")
-    print("|---|---:|---:|---:|---:|")
+    print("| File | N | Correct | Invalid | Multi N | Multi Correct | Accuracy |")
+    print("|---|---:|---:|---:|---:|---:|---:|")
     for row in rows:
         print(
-            "| {file} | {total} | {correct} | {invalid_predictions} | {accuracy} |".format(
+            "| {file} | {total} | {correct} | {invalid_predictions} | {multi_answer_total} | {multi_answer_correct} | {accuracy} |".format(
                 file=row["file"],
                 total=row["total"],
                 correct=row["correct"],
                 invalid_predictions=row["invalid_predictions"],
+                multi_answer_total=row["multi_answer_total"],
+                multi_answer_correct=row["multi_answer_correct"],
                 accuracy=format_float(row["accuracy"]),
             )
         )

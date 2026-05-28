@@ -1,0 +1,24 @@
+{
+  "slug": "mmedbench_multilingual",
+  "display_name": "MMedBench multilingual",
+  "default_input": "~/datasets/MMedBench/Henrychur_MMedBench/canonical",
+  "canonical_test_files": [
+    "test.jsonl"
+  ],
+  "expected_rows": 8518,
+  "prompt_language": "metadata",
+  "allow_multi_answer": true,
+  "shuffle_options": false,
+  "shuffle_options_seed": 123,
+  "source_dataset": "Henrychur/MMedBench",
+  "source_split": "Test",
+  "source_languages": [
+    "English",
+    "Chinese",
+    "Japanese",
+    "French",
+    "Russian",
+    "Spanish"
+  ],
+  "notes": "Official MMedBench Test split from MMedBench.zip. French and Japanese include multi-answer questions; evaluation uses exact set match on comma-separated option labels. Prompt language is selected from each sample's metadata language using meaning-preserving translations of the project unified prompt. Options are not shuffled for this dataset, preserving the official option order."
+}
