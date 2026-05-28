@@ -1,0 +1,17 @@
+{
+  "slug": "afrimedqa",
+  "display_name": "AfriMedQA Expert MCQ",
+  "default_input": "~/datasets/AfriMedQA/afrimedqa_v2/canonical",
+  "canonical_test_files": [
+    "test.jsonl"
+  ],
+  "expected_rows": 3910,
+  "prompt_language": "en",
+  "allow_multi_answer": true,
+  "shuffle_options_seed": 123,
+  "source_dataset": "afrimedqa/afrimedqa_v2",
+  "source_file": "afri_med_qa_15k_v2.4_phase_2_15275.csv",
+  "source_split": "test",
+  "source_subset": "question_type=mcq,tier=expert",
+  "notes": "AfriMedQA v2 expert MCQ test subset only. SAQ and consumer queries are excluded because the project accuracy pipeline evaluates multiple-choice answers. Multiple-answer questions are evaluated by exact option-label set match. Original N/A options are preserved because they are part of the released answer options and can be correct answers."
+}
