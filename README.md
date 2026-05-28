@@ -4,6 +4,8 @@ A reproducible benchmark suite for evaluating small language models on medical m
 
 This repository contains a unified inference and evaluation pipeline, model and dataset configuration files, and a public summary of the final benchmark results. The benchmark is designed around fairness: within each dataset column, all models are evaluated on the same canonical test set, with the same prompt semantics, answer mapping, decoding settings, and parser.
 
+![Strict-format accuracy across medical QA benchmarks](figures/benchmark_accuracy.svg)
+
 ![Strict-format accuracy matrix across medical QA benchmarks](figures/benchmark_accuracy_heatmap.svg)
 
 ## Benchmark Scope
