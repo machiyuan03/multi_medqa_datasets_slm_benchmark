@@ -1,0 +1,15 @@
+{
+  "slug": "craft_medqa_xl",
+  "display_name": "CRAFT-MedQA XL",
+  "default_input": "~/datasets/CRAFT-MedQA/ingoziegler_CRAFT-MedQA/XL/canonical",
+  "canonical_test_files": [
+    "test.jsonl"
+  ],
+  "expected_rows": 25000,
+  "prompt_language": "en",
+  "shuffle_options_seed": 123,
+  "source_dataset": "ingoziegler/CRAFT-MedQA",
+  "source_config": "XL",
+  "source_split": "train",
+  "notes": "Official CRAFT-MedQA XL synthetic split. HF exposes only a train split; this project treats the selected XL split as the fixed benchmark file after canonical normalization. All questions are English 4-option single-answer MCQs. Original option strings include A./A) prefixes, so canonical normalization strips those prefixes before infer.py formats options."
+}
